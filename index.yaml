@@ -3,12 +3,12 @@ entries:
   brender-node:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-11-21T02:01:45.0798819+01:00"
-    description: A Helm chart for Kubernetes
-    digest: 34520ac8bb0b68edec387e59798e048763aab572fa3abec2efd2f36aaf4917dd
+    created: "2024-11-21T03:58:41.0150697+01:00"
+    description: A Helm chart a Blender render node
+    digest: 8b03847d0b50e5662079f7f442b648af4b5925df3833cd71c2433383bf540020
     name: brender-node
     type: application
     urls:
     - https://dzooli.github.io/helmcharts/brender-node-0.1.0.tgz
     version: 0.1.0
-generated: "2024-11-21T02:01:45.0798819+01:00"
+generated: "2024-11-21T03:58:41.0145694+01:00"

@@ -3,27 +3,27 @@ Hash: SHA512
 
 apiVersion: v2
 appVersion: 1.16.0
-description: A Helm chart for Kubernetes
+description: A Helm chart a Blender render node
 name: brender-node
 type: application
 version: 0.1.0
 
 ...
 files:
-  brender-node-0.1.0.tgz: sha256:34520ac8bb0b68edec387e59798e048763aab572fa3abec2efd2f36aaf4917dd
+  brender-node-0.1.0.tgz: sha256:8b03847d0b50e5662079f7f442b648af4b5925df3833cd71c2433383bf540020
 -----BEGIN PGP SIGNATURE-----
 
-wsFcBAEBCgAQBQJnPoXUCRBKMu7/1zGyTgAAJngQAGWzx0ZrBIUMXhhru+XtNTg4
-0Z7NIIT3AVgPu/vODvDxNuB5UAuESe0IBvOW+C+av2ZXcpZlEEgWO3PX9j/OCMEX
-fAiDfC8oi+cnsfhNZQjJLg3fEkQ93f03MDp9Hz3CSLy7UcTmcfSw/AFsj1a+zmpv
-B3f+owxFrxgRQGuRcxtY2MdnOAi7dUA1aby1Wptko+96NaIlO/DhcYAlOfhGN0Y2
-x7J3vPvrjpnr42IPWmq6T55eNm7IadqIT/USpuE4jmQ3K6UjhYnyUU/9DbwV6nxZ
-U2q90OdfBRYLmw9CkaBNt0CoWUB2Hw3CCHfwS9tVUjbckNsAvzymvzZYOTmHU+tx
-07SiFFidXMeTFP5Cou+ksynzn4s49x3MZJbsOSmrcND4wPWYeOgjpdXhrjMymHll
-39f+TVqVpwUKNnIQv2KLiPOK2neswV2DIkUjyqmytZwkg5w/d3tAnejnlTTrVAfZ
-9tsX7nPMQzS9L/XsB1faE6RE43JVLSa/zZiY7MLsk5NVhcdu2vgHSA1BR/34iTDX
-wk4ydGWXLRbjo5o7fY4OXQFFVj52PkoGp9k1q1tYVVykN6iT4V+fRboO6RG6i4nQ
-abUtz+JvZaeNgds9AxyLOiPxdMiFgpZtitcswDRmQCn3V0E4Vz6OQAUAGEO6m8fo
-oApA3r5oD3YohLZgpSr0
-=8bBf
+wsFcBAEBCgAQBQJnPqHgCRBKMu7/1zGyTgAA6LwQABPR1ghEWlZ1GyfS4IGi3lev
+cbGe9Y4JHy6qhcPtDSx6nVAgQXhM9BToRTqbsS5tCrZ0lum/KxANvg57FOC/UWUT
+RLqDEdQwYJVbqLQ+QHKzMrTB41Zv2PsHYOdcvce5o/jNb4bdU7i+M4eio8nswNO1
+jcmX6xQ+ZvYkAVA5ED1rhZ8Rj0GjB/wm1SpohoIZQ4VT4Azap2JzwqFVIbAJtJ2M
+NlsKVVpOUxD5TDV0yrAuBa5mhy9U9EenWACvAtrA64SczBcEdhHSQry4hQxdb4Ip
+HJuSzHRDsbIOcntUcwXm5EoYpldvqQp/0k0TFO+UAEK/ei22gQV00oN27UDmUknz
++A0FGCa9z2JCsoDEjVAYWXIOVwdQJzJfNXQeKytHwnzV7b6Sxcar+GRyxVbuMbWs
+jbloMnIsntEjva2G35LE+XTnDHdtVfubcV7Rk3q9JMi/52ImRmtku5j/S0pGWZQM
+Ir22w6wuiAfnWHKg8bSmwOAxfehmUWIvg3chjgHBK8/coCZB+7ne3ywUp/1PUmgt
+b4dr/nbU+mQVjACkzyEHxo7wDV65oKOTbMi32pBnb5Sym3sneFXpac7o1WVlbLdA
+cYajfEuo1Y1Bt9dMgBDKzP/drK+EizEmc7zUZc5K7U3PmSK8l3WkEE/hcq60Yv6k
+qWgJMe5TKe0r78W321/r
+=V/6f
 -----END PGP SIGNATURE-----
