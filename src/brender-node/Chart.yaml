@@ -1,6 +1,6 @@
 apiVersion: v2
 name: brender-node
-description: A Helm chart a Blender render node
+description: A Helm chart for a Blender renderfarm
 
 # A chart can be either an 'application' or a 'library' chart.
 #
