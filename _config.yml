@@ -1,0 +1,13 @@
+plugins:
+  - jekyll-default-layout
+  - jekyll-readme-index
+  - jekyll-titles-from-headings
+  - jekyll-relative-links
+
+safe: true
+
+whitelist:
+  - jekyll-default-layout
+  - jekyll-readme-index
+  - jekyll-titles-from-headings
+  - jekyll-relative-links

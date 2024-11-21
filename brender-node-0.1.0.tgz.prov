@@ -1,0 +1,29 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+apiVersion: v2
+appVersion: 1.16.0
+description: A Helm chart for Kubernetes
+name: brender-node
+type: application
+version: 0.1.0
+
+...
+files:
+  brender-node-0.1.0.tgz: sha256:34520ac8bb0b68edec387e59798e048763aab572fa3abec2efd2f36aaf4917dd
+-----BEGIN PGP SIGNATURE-----
+
+wsFcBAEBCgAQBQJnPoXUCRBKMu7/1zGyTgAAJngQAGWzx0ZrBIUMXhhru+XtNTg4
+0Z7NIIT3AVgPu/vODvDxNuB5UAuESe0IBvOW+C+av2ZXcpZlEEgWO3PX9j/OCMEX
+fAiDfC8oi+cnsfhNZQjJLg3fEkQ93f03MDp9Hz3CSLy7UcTmcfSw/AFsj1a+zmpv
+B3f+owxFrxgRQGuRcxtY2MdnOAi7dUA1aby1Wptko+96NaIlO/DhcYAlOfhGN0Y2
+x7J3vPvrjpnr42IPWmq6T55eNm7IadqIT/USpuE4jmQ3K6UjhYnyUU/9DbwV6nxZ
+U2q90OdfBRYLmw9CkaBNt0CoWUB2Hw3CCHfwS9tVUjbckNsAvzymvzZYOTmHU+tx
+07SiFFidXMeTFP5Cou+ksynzn4s49x3MZJbsOSmrcND4wPWYeOgjpdXhrjMymHll
+39f+TVqVpwUKNnIQv2KLiPOK2neswV2DIkUjyqmytZwkg5w/d3tAnejnlTTrVAfZ
+9tsX7nPMQzS9L/XsB1faE6RE43JVLSa/zZiY7MLsk5NVhcdu2vgHSA1BR/34iTDX
+wk4ydGWXLRbjo5o7fY4OXQFFVj52PkoGp9k1q1tYVVykN6iT4V+fRboO6RG6i4nQ
+abUtz+JvZaeNgds9AxyLOiPxdMiFgpZtitcswDRmQCn3V0E4Vz6OQAUAGEO6m8fo
+oApA3r5oD3YohLZgpSr0
+=8bBf
+-----END PGP SIGNATURE-----
