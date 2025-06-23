@@ -1,0 +1,41 @@
+# values.yaml
+# ───────────
+# Alapértékek a Dask-helm chart-hoz
+
+# ── Namespace ────────────────────────────────────────────────────────────────
+# A chart minden erőforrása ebbe a névtérbe kerül.  Ha üresen hagyod,
+# a Helm-telepítéskor megadott (--namespace) érték érvényesül.
+namespace: dask-test
+
+# ── Konténer-image beállítások ───────────────────────────────────────────────
+image:
+  repository: ghcr.io/dask/dask:dev-py3.12
+  digest: sha256:d77e7462f3211b4ca0bf09413cd1b8a9b2853d932118dc9b6339e0b511f2e5b6
+  pullPolicy: IfNotPresent          # Always | IfNotPresent | Never
+
+# ── Ingress a schedulerhez ───────────────────────────────────────────────────
+ingress:
+  enabled: true
+  host: dask.local.net              # publikus hosztnév
+  annotations: {}                   # pl. nginx.ingress.kubernetes.io/…
+  tls:
+    enabled: true
+    secretName: dask-local-net-tls      # ⇦ itt létező TLS-secret neve    
+
+# ── Worker példányszám ───────────────────────────────────────────────────────
+workerReplicas: 4
+
+# ── Erőforráskvóták (üres = alapértelmezés) ─────────────────────────────────
+resources:
+  scheduler: {}                     # pl. { requests: { cpu: "200m", memory: "1Gi" } }
+  worker:    {}
+
+# ── Csak Linux/arm64 node-okon fusson ────────────────────────────────────────
+nodeSelector:
+  kubernetes.io/os:   linux
+  kubernetes.io/arch: arm64
+
+# ── Opcionális k8s beállítások ───────────────────────────────────────────────
+tolerations: []                     # ha az arm64 node-ok tainteltek
+affinity:    {}                     # pl. zónák közötti elosztás
+

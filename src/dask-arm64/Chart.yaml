@@ -1,0 +1,36 @@
+# Chart.yaml
+apiVersion: v2
+name: dask
+description: |
+  Dask Scheduler + Workers helm chart.
+  • 1× scheduler (Ingress-exposed)
+  • N× workers (default = 3)
+  • Linux/arm64-only deployment
+type: application
+
+# Chart / package version (bump on every publish)
+version: 0.1.0
+
+# Upstream software version (informational)
+appVersion: "2025.06.0"
+
+keywords:
+  - dask
+  - distributed
+  - scheduler
+  - worker
+  - arm64
+  - kubernetes
+
+kubeVersion: ">= 1.24.0-0"
+
+home: https://github.com/dzooli/helmcharts
+sources:
+  - https://github.com/dzooli/helmcharts/tree/charts/src/dask
+
+maintainers:
+  - name: Zoltán Fabian
+
+# No external dependencies
+dependencies: []
+

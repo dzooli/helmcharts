@@ -3,12 +3,37 @@ entries:
   brender-node:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-11-21T04:07:05.8177334+01:00"
+    created: "2025-06-23T15:54:41.703184595+02:00"
     description: A Helm chart for a Blender renderfarm
-    digest: 5d1c0210ea9caf76eeeb5b54fdda9008749cc4844eb667215369c9565374806f
+    digest: 41f86184586c9a8022d633ae4cc379ca4b6a411893031eb7cdd05507bd5fb6dc
     name: brender-node
     type: application
     urls:
-    - https://dzooli.github.io/helmcharts/brender-node-0.1.0.tgz
+    - https://dzooli.github.io/helmcharts/packages/brender-node.tgz
     version: 0.1.0
-generated: "2024-11-21T04:07:05.8172318+01:00"
+  dask:
+  - apiVersion: v2
+    appVersion: 2025.06.0
+    created: "2025-06-23T15:54:41.706119382+02:00"
+    description: 'Dask Scheduler + Workers helm chart. • 1× scheduler (Ingress-exposed)
+      • N× workers (default = 3) • Linux/arm64-only deployment '
+    digest: 8a0511581a1101ca363eda2b42cc790866e69e2a0e112efa327e012672d8c58b
+    home: https://github.com/dzooli/helmcharts
+    keywords:
+    - dask
+    - distributed
+    - scheduler
+    - worker
+    - arm64
+    - kubernetes
+    kubeVersion: '>= 1.24.0-0'
+    maintainers:
+    - name: Zoltán Fabian
+    name: dask
+    sources:
+    - https://github.com/dzooli/helmcharts/tree/charts/src/dask
+    type: application
+    urls:
+    - https://dzooli.github.io/helmcharts/packages/dask-arm64.tgz
+    version: 0.1.0
+generated: "2025-06-23T15:54:41.700362426+02:00"

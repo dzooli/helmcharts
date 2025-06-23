@@ -1,29 +1,57 @@
-.EXPORT_ALL_VARIABLES:
-SHELL=/bin/bash
+###############################################################################
+#  Makefile – lint → package → repo index
+###############################################################################
+SHELL     := /bin/bash
+REPOURL   := https://dzooli.github.io/helmcharts/
 
-packages = src/brender-node
+# ── chart-lista: csak KÖNYVTÁRAK a src/ alatt ────────────────────────────────
+CHART_DIRS := $(patsubst %/,%,$(wildcard src/*/))   # → src/dask-arm64 src/xyz …
+CHARTS     := $(notdir $(CHART_DIRS))               # → dask-arm64 xyz …
 
-KEYNAME := 'Zoltan Fabian'
-KEYRING := $(shell echo $$HOME)/.gnupg/secring.gpg
-REPOURL := https://dzooli.github.io/helmcharts/
+# ── célfájlok ────────────────────────────────────────────────────────────────
+LINT_FLAGS := $(addprefix build/,$(addsuffix .lint,$(CHARTS)))
+TGZ_FILES  := $(addprefix packages/,$(addsuffix .tgz,$(CHARTS)))
 
+# ── fő cél ───────────────────────────────────────────────────────────────────
+all: $(TGZ_FILES) index.yaml
 
-all: $(packages) index.yaml
+###############################################################################
+# 1) LINT – build/<chart>.lint  (flag a build/ mappában)
+###############################################################################
+build/%.lint: src/%/Chart.yaml | build
+	@echo "🔍 helm lint src/$*"
+	@helm lint src/$*
+	@touch $@
 
-index.yaml: reindex.txt
-	set -e; helm repo index . --url $(REPOURL) 
+lint: $(LINT_FLAGS)                   # manuális: make lint
 
-$(packages): flag.txt
-	set -e;	helm package --key $(KEYNAME) --sign --keyring $(KEYRING) $@
+build:
+	@mkdir -p build
 
-flag.txt:
-	touch $@
-reindex.txt:
-	touch $@
+###############################################################################
+# 2) PACKAGE – packages/<chart>.tgz  (verzió-független név)
+###############################################################################
+packages/%.tgz: build/%.lint | packages
+	@echo "📦 helm package src/$*"
+	@helm package src/$* --destination packages
+	@latest=$$(ls -1t packages/*.tgz | head -1); mv $$latest $@
 
-.PHONY: clean
+packages:
+	@mkdir -p packages
+
+###############################################################################
+# 3) REPO INDEX  – index.yaml
+###############################################################################
+index.yaml: $(TGZ_FILES)
+	@echo "🔄 helm repo index ..."
+	@helm repo index . --url $(REPOURL) --merge $@
+
+###############################################################################
+# 4) CLEAN
+###############################################################################
+.PHONY: lint clean distclean
 clean:
-	rm -f flag.txt reindex.txt
-
+	rm -rf build packages
 distclean: clean
 	rm -f index.yaml
+

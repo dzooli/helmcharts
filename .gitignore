@@ -1,3 +1,6 @@
 flag.txt
 reindex.txt
+*/lint
+*.lint
+build
 

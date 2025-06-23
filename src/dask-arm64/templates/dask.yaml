@@ -1,0 +1,168 @@
+# templates/dask.yaml
+# Helm template that deploys:
+#   • 1 × Dask Scheduler (Ingress-exposed)  
+#   • 3 × Dask Workers  
+# Runs **only** on Linux arm64 nodes.
+
+# REQUIRED values.yaml settings:
+# image:
+#   repository: ghcr.io/dask/dask
+#   digest: sha256:…          # exact image SHA
+# ingress:
+#   host: dask.example.com    # external hostname
+# workerReplicas: 3           # adjust if needed
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-scheduler
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: dask
+    app.kubernetes.io/component: scheduler
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: dask
+      app.kubernetes.io/component: scheduler
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: dask
+        app.kubernetes.io/component: scheduler
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      nodeSelector:
+        kubernetes.io/os: linux
+        kubernetes.io/arch: arm64
+      containers:
+        - name: scheduler
+          image: "{{ .Values.image.repository }}@{{ .Values.image.digest }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy | default "IfNotPresent" }}
+          command: ["dask-scheduler"]
+          ports:
+            - name: tcp-scheduler
+              containerPort: 8786
+            - name: dashboard-port
+              containerPort: 8787
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-scheduler
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: dask
+    app.kubernetes.io/component: scheduler
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: dask
+    app.kubernetes.io/component: scheduler
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  ports:
+    - name: tcp-scheduler
+      port: 8786
+      targetPort: tcp-scheduler
+    - name: http-dashboard
+      port: 8787
+      targetPort: dashboard-port
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}-scheduler
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: dask
+    app.kubernetes.io/component: scheduler
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+    # ── NGINX Ingress Controller ────────────────────────────────────────────
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    # (opcionálisan) ha HTTP-ről HTTPS-re írnál át
+    # nginx.ingress.kubernetes.io/permanent-redirect: "https://$host$request_uri"
+
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - {{ .Values.ingress.host }}
+      secretName: {{ .Values.ingress.tls.secretName }}
+  rules:
+    - host: {{ .Values.ingress.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Release.Name }}-scheduler
+                port:
+                  number: 8787          # a web-UI (HTTP) portja
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-worker
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: dask
+    app.kubernetes.io/component: worker
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.workerReplicas | default 3 }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: dask
+      app.kubernetes.io/component: worker
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: dask
+        app.kubernetes.io/component: worker
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      nodeSelector:
+        kubernetes.io/os: linux
+        kubernetes.io/arch: arm64
+      containers:
+        - name: worker
+          image: "{{ .Values.image.repository }}@{{ .Values.image.digest }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy | default "IfNotPresent" }}
+          command:
+            - dask-worker
+            - {{ .Release.Name }}-scheduler:8786
+          env:
+            - name: DASK_SCHEDULER_ADDRESS
+              value: "tcp://{{ .Release.Name }}-scheduler:8786"
+          ports:
+            - name: tcp-worker
+              containerPort: 8789
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-worker
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: dask
+    app.kubernetes.io/component: worker
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  clusterIP: None   # headless service
+  selector:
+    app.kubernetes.io/name: dask
+    app.kubernetes.io/component: worker
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  ports:
+    - name: tcp-worker
+      port: 8789
+      targetPort: tcp-worker
+
